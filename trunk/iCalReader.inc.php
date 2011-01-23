@@ -34,9 +34,9 @@ class ical {
 
     public function __construct($filename) {
         $lines = file($filename, FILE_IGNORE_NEW_LINES | FILE_SKIP_EMPTY_LINES);
-        if (stristr($lines[0],'BEGIN:VCALENDAR') === false){
-            return false;
-        } else {
+        if($lines === false){return false;}
+        else if (stristr($lines[0],'BEGIN:VCALENDAR') === false){return false;}
+        else {
             foreach ($lines as $line) {
                 $line = trim($line);
                 $add = $this->split_key_value($line);

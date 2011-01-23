@@ -9,6 +9,11 @@ $date = $array[0]['DTSTART'];
 echo $date;
 
 // The Unix timestamp
-echo date('d.m.Y H:i', $date);
+echo $ical->ical_date_to_unix_timestamp($date);
 
+// The number of events
+echo $ical->event_count;
+
+// The number of events
+echo $ical->todo_count;
 ?>
