@@ -1,5 +1,5 @@
 <?
-require('iCalReader.php');
+require('iCalReader.inc.php');
 
 $ical = new ical('MyCal.ics');
 $array= $ical->get_event_array();
