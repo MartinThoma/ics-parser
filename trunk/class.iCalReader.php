@@ -258,7 +258,7 @@ class ICal
         // loop through all events by adding two new elements
         foreach ($events as $anEvent) {
             $timestamp = $this->iCalDateToUnixTimestamp($anEvent['DTSTART']);
-            if ($timestamp >= $rangeStart) {
+            if ($timestamp >= $rangeStart && $timestamp <= $rangeEnd) {
                 $extendedEvents[] = $anEvent;
             }
         }
