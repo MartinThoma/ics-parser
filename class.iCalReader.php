@@ -118,7 +118,7 @@ class ICal
      * @param {string} $keyword   The keyword, for example DTSTART
      * @param {string} $value     The value, for example 20110105T090000Z
      *
-     * @return None
+     * @return {None}
      */ 
     public function addCalendarComponentWithKeyAndValue($component, 
                                                         $keyword, 
@@ -163,7 +163,7 @@ class ICal
      *
      * @param {string} $text which is like "VCALENDAR:Begin" or "LOCATION:"
      *
-     * @return {Array} array("VCALENDAR", "Begin")
+     * @return {array} array("VCALENDAR", "Begin")
      */
     public function keyValueFromString($text) 
     {
@@ -234,8 +234,8 @@ class ICal
     /**
      * Returns a boolean value whether thr current calendar has events or not
      *
-     * @param boolean $rangeStart Either true or false
-     * @param boolean $rangeEnd   Either true or false
+     * @param {boolean} $rangeStart Either true or false
+     * @param {boolean} $rangeEnd   Either true or false
      *
      * @return {boolean}
      */
@@ -269,9 +269,9 @@ class ICal
     /**
      * Returns a boolean value whether thr current calendar has events or not
      *
-     * @param array $events    An array with events.
-     * @param array $sortOrder Either SORT_ASC, SORT_DESC, SORT_REGULAR, 
-     *                         SORT_NUMERIC, SORT_STRING
+     * @param {array} $events    An array with events.
+     * @param {array} $sortOrder Either SORT_ASC, SORT_DESC, SORT_REGULAR, 
+     *                           SORT_NUMERIC, SORT_STRING
      *
      * @return {boolean}
      */
