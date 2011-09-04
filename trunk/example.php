@@ -1,19 +1,23 @@
 <?
-require('iCalReader.inc.php');
+require('class.iCalReader.php');
 
 $ical = new ical('MyCal.ics');
 $array= $ical->get_event_array();
 
-// The ical date
 $date = $array[0]['DTSTART'];
+echo "The ical date: ";
 echo $date;
+echo "<br/>";
 
-// The Unix timestamp
+echo "The Unix timestamp: ";
 echo $ical->ical_date_to_unix_timestamp($date);
+echo "<br/>";
 
-// The number of events
+echo "The number of events: ";
 echo $ical->event_count;
+echo "<br/>";
 
-// The number of events
+echo "The number of todos: ";
 echo $ical->todo_count;
+echo "<br/>";
 ?>
