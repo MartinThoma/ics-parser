@@ -232,28 +232,42 @@ class ICal
     }
 
     /**
-     * Returns a boolean value whether thr current calendar has events or not
+     * Returns false when the current calendar has no events in range, else the
+     * events.
+     * 
+     * Note that this function makes use of a UNIX timestamp. This might be a 
+     * problem on January the 29th, 2038.
+     * See http://en.wikipedia.org/wiki/Unix_time#Representing_the_number
      *
      * @param {boolean} $rangeStart Either true or false
      * @param {boolean} $rangeEnd   Either true or false
      *
-     * @return {boolean}
+     * @return {mixed}
      */
     public function eventsFromRange($rangeStart = false, $rangeEnd = false) 
     {
+        $events = $this->sortEventsWithOrder($this->events(), SORT_ASC);
+
+        if (!$events) {
+            return false;
+        }
+
         $extendedEvents = array();
         
-        if (!$rangeStart) {
+        if ($rangeStart !== false) {
             $rangeStart = new DateTime();
         }
-        if (!$rangeEnd) {
-            $rangeEnd = new DateTime('2038/12/31');
+
+        if ($rangeEnd !== false or $rangeEnd <= 0) {
+            $rangeEnd = new DateTime('2038/01/18');
+        } else {
+            $rangeEnd = new DateTime($rangeEnd);
         }
 
         $rangeStart = $rangeStart->format('U');
         $rangeEnd   = $rangeEnd->format('U');
 
-        $events = $this->sortEventsWithOrder($this->events(), SORT_ASC);
+        
 
         // loop through all events by adding two new elements
         foreach ($events as $anEvent) {
