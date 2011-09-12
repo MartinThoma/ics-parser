@@ -200,6 +200,8 @@ class ICal
         if ($date[1] <= 1970) {
             return false;
         } 
+        // Unix timestamps after 03:14:07 UTC 2038-01-19 might cause an overflow
+        // if 32 bit integers are used.
         $timestamp = mktime((int)$date[4], 
                             (int)$date[5], 
                             (int)$date[6], 
