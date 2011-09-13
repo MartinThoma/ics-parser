@@ -12,7 +12,7 @@
  * @version  SVN: <svn_id>
  * @link     http://code.google.com/p/ics-parser/
  * @example  $ical = new ical('MyCal.ics');
- *           print_r( $ical->get_event_array() );
+ *           print_r( $ical->events() );
  */
 
 error_reporting(E_ALL);
