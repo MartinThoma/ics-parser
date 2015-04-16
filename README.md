@@ -3,8 +3,10 @@ free, but I would like to get a notice when you use it (info@martin-thoma.de).
 If you use it for another software project, please let the information / links
 to this project in the files.
 
-It is hosted at http://code.google.com/p/ics-parser/ and PEAR coding standard is
+It is hosted at https://github.com/MartinThoma/ics-parser/ and PEAR coding standard is
 used.
+
+**This project will not be continued. [johngrogg/ics-parser](https://github.com/johngrogg/ics-parser) is based on this project, but still supported and a few features were added.**
 
 
 ## Requirements
@@ -20,8 +22,8 @@ used.
 
 ## Credits
 
-Martin Thoma (programming, bug-fixing, project management)
-Frank Gregor (programming, feedback, testing)
+* Martin Thoma (programming, bug-fixing, project management)
+* Frank Gregor (programming, feedback, testing)
 
 
 ## Basic Usage ##
