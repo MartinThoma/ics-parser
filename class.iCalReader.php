@@ -60,53 +60,64 @@ class ICal
         if (stristr($lines[0], 'BEGIN:VCALENDAR') === false) {
             return false;
         } else {
-            // TODO: Fix multiline-description problem (see http://tools.ietf.org/html/rfc2445#section-4.8.1.5)
-            foreach ($lines as $line) {
-                $line = trim($line);
-                $add  = $this->keyValueFromString($line);
-                if ($add === false) {
-                    $this->addCalendarComponentWithKeyAndValue($type, false, $line);
-                    continue;
-                } 
+            // JAN PETERS' FIX FOR: multiline-description problem (see http://tools.ietf.org/html/rfc2445#section-4.8.1.5)
+            $line = "";
+            foreach ($lines as $lnum => $mycurrentline) {
+                $currentline = trim($mycurrentline,"\t\n\r\0\x0B"); 
+                if(ctype_lower($currentline[1])) {
+                    $currentline = trim($mycurrentline," ");           
+                }
+                
+                $nextline = $lines[$lnum+1];
+                $line .= $currentline;
+                if($nextline[0] != " ") {   
 
-                list($keyword, $value) = $add;
+                   $add  = $this->keyValueFromString($line);
+                    if ($add === false) {
+                        $this->addCalendarComponentWithKeyAndValue($type, false, $line);
+                        continue;
+                    } 
 
-                switch ($line) {
-                // http://www.kanzaki.com/docs/ical/vtodo.html
-                case "BEGIN:VTODO": 
-                    $this->todo_count++;
-                    $type = "VTODO"; 
-                    break; 
+                    list($keyword, $value) = $add;
 
-                // http://www.kanzaki.com/docs/ical/vevent.html
-                case "BEGIN:VEVENT": 
-                    //echo "vevent gematcht";
-                    $this->event_count++;
-                    $type = "VEVENT"; 
-                    break; 
+                    switch ($line) {
+                    // http://www.kanzaki.com/docs/ical/vtodo.html
+                    case "BEGIN:VTODO": 
+                        $this->todo_count++;
+                        $type = "VTODO"; 
+                        break; 
 
-                //all other special strings
-                case "BEGIN:VCALENDAR": 
-                case "BEGIN:DAYLIGHT": 
-                    // http://www.kanzaki.com/docs/ical/vtimezone.html
-                case "BEGIN:VTIMEZONE": 
-                case "BEGIN:STANDARD": 
-                    $type = $value;
-                    break; 
-                case "END:VTODO": // end special text - goto VCALENDAR key 
-                case "END:VEVENT": 
-                case "END:VCALENDAR": 
-                case "END:DAYLIGHT": 
-                case "END:VTIMEZONE": 
-                case "END:STANDARD": 
-                    $type = "VCALENDAR"; 
-                    break; 
-                default:
-                    $this->addCalendarComponentWithKeyAndValue($type, 
-                                                               $keyword, 
-                                                               $value);
-                    break; 
-                } 
+                    // http://www.kanzaki.com/docs/ical/vevent.html
+                    case "BEGIN:VEVENT": 
+                        //echo "vevent gematcht";
+                        $this->event_count++;
+                        $type = "VEVENT"; 
+                        break; 
+
+                    //all other special strings
+                    case "BEGIN:VCALENDAR": 
+                    case "BEGIN:DAYLIGHT": 
+                        // http://www.kanzaki.com/docs/ical/vtimezone.html
+                    case "BEGIN:VTIMEZONE": 
+                    case "BEGIN:STANDARD": 
+                        $type = $value;
+                        break; 
+                    case "END:VTODO": // end special text - goto VCALENDAR key 
+                    case "END:VEVENT": 
+                    case "END:VCALENDAR": 
+                    case "END:DAYLIGHT": 
+                    case "END:VTIMEZONE": 
+                    case "END:STANDARD": 
+                        $type = "VCALENDAR"; 
+                        break; 
+                    default:
+                        $this->addCalendarComponentWithKeyAndValue($type, 
+                                                                   $keyword, 
+                                                                   $value);
+                        break; 
+                    }
+                    $line="";
+                }
             }
             return $this->cal; 
         }
