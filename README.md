@@ -6,7 +6,7 @@ to this project in the files.
 It is hosted at https://github.com/MartinThoma/ics-parser/ and PEAR coding standard is
 used.
 
-**This project will not be continued. [johngrogg/ics-parser](https://github.com/johngrogg/ics-parser) is based on this project, but still supported and a few features were added.**
+**This project will not be continued. [ics-parser](https://github.com/u01jmg3/ics-parser) is based on this project, but still supported with many new features added.**
 
 
 ## Requirements
